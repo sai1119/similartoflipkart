@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <style>
+        div{
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div><input type="text" name="" id="username" placeholder="username"></div>
+    <div><input type="password" name="" id="password" placeholder="password"></div>
+    <div id="Invalid"></div>
+    <div><input type="button" value="LOGIN" onclick="validateCredentials()"></div>
+    
+    <script>
+        function validateCredentials() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            let userinfo = {
+                username: username,
+                password: password
+            };
+
+            let httpRequest = new XMLHttpRequest();
+            
+            httpRequest.onreadystatechange = function() {
+                console.log(httpRequest.readyState);
+                if (httpRequest.readyState === 4) {
+                    var a=httpRequest.responseText
+                    sessionStorage.setItem('infor',a)
+                    if (httpRequest.status === 200) {
+                        var userinfos = JSON.parse(httpRequest.responseText).users;
+                        for (let i = 0; i < userinfos.length; i++) {
+                            if (userinfo.username == userinfos[i].username && userinfo.password == userinfos[i].password) {
+                                let z=JSON.stringify(userinfos[i])
+                                console.log(z)
+                                sessionStorage.setItem('y',z);
+                                window.location.href = './products.html';
+                                sessionStorage.setItem('isloggedin',true)
+                                var x=-1;
+                            }
+                        }
+                        if(x!=-1){
+                            document.getElementById('Invalid').innerHTML = "Invalid Credentials";
+                        }
+                    } 
+                    else {
+                        document.getElementById('Invalid').innerHTML = "Invalid Credentials";
+                    }
+                }
+            };
+
+            httpRequest.open('GET', 'https://dummyjson.com/users', true);
+            httpRequest.setRequestHeader('content-type', 'application/json');
+            httpRequest.send();
+        }
+    </script>
+</body>
+</html>

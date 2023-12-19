@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<style>
+    #info{
+        display: flex;
+        float: left;
+    }
+
+    #heading{
+        text-align: center;
+    }
+    #info{
+        margin-left: 20%;
+    }
+    #buy{
+        
+        text-align: center;
+        
+    }
+    #navbar {
+            display: flex;
+            padding: 5px 8px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #logout {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        a {
+            padding-right: 10px;
+            text-decoration: none;
+            color: #000;
+        }
+</style>
+<body>
+    <div id="navbar">
+        <div>
+            <h3>Dashboard</h3>
+        </div>
+        <div>
+            
+                <a href="./products.html">Products</a>
+                <a href="./profile.html">Profile </a>
+                <a href="admin.html">Users</a>
+                <a href="./logout.html">Log Out</a>
+                
+        </div>
+    </div>
+    <h2 id="heading"></h2>
+    <div id="info">
+
+    </div>
+    <div id="buy">
+        <button>BUY NOW</button>
+    </div>
+    <script>
+       if(sessionStorage.getItem('isloggedin')){
+        var index=sessionStorage.getItem('index');
+        var productsinfo=JSON.parse(sessionStorage.getItem('productsinfo')).products[index]
+        console.log(productsinfo)
+        let info=document.getElementById('info')
+        heading=document.getElementById('heading')
+        heading.innerHTML=productsinfo.title
+        let image=document.createElement('img');
+        image.setAttribute('src',productsinfo.thumbnail)
+        image.classList.add('box')
+        info.appendChild(image)
+        let matter=document.createElement('ul');
+        matter.classList.add('box')
+        let l1=document.createElement('li');
+        l1.innerHTML=productsinfo.brand
+        matter.appendChild(l1)
+        let l2=document.createElement('li');
+        l2.innerHTML=productsinfo.description
+        matter.appendChild(l2)
+        let l3=document.createElement('li');
+        l3.innerHTML="Price:     "+productsinfo.price+ " $"
+        matter.appendChild(l3)
+        info.appendChild(matter)
+       }
+
+
+    </script>
+</body>
+</html>

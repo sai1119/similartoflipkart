@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <style>
+        #users-list{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        
+        .div{
+            text-align: center;
+            
+            margin: 10px;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        }
+
+        .div2 div {
+            display: flex;
+            float: left;
+            margin-left: 100px;
+            border: 1px solid black;
+            padding: 5px;
+            border-radius: 10px;
+            background-color: orange;
+        }
+
+    </style>
+</head>
+<body>
+    <h2 style="color: red; text-align: center;">USERS</h2>
+    <div id="users-list"></div>
+    <script>
+       if(sessionStorage.getItem('isloggedin')){
+        var userlist=document.getElementById('users-list');
+        
+        (function() {
+             var httpRequest=new XMLHttpRequest();
+             httpRequest.onreadystatechange=function(){
+                 if(httpRequest.readyState==4 && httpRequest.status==200){
+                     // console.log(httpRequest.responseText)
+                     // console.log(JSON.parse(httpRequest.responseText));
+                     var users1=JSON.parse(httpRequest.responseText).users;
+                     for(let i=0;i<users1.length;i++){
+                         var div=document.createElement('div')
+                         div.classList.add('div')
+                         var img=document.createElement('img');
+                         img.classList.add('imgsrc');
+                         img.setAttribute('src',users1[i].image)
+                         img.setAttribute('height','100px')
+                         img.setAttribute('width','150px')
+                         div.appendChild(img)
+                         username=document.createElement('p')
+                         username.innerHTML="USERNAME: "+users1[i].username
+                         div.appendChild(username)
+                         var userid=document.createElement('p');
+                         div.appendChild(userid)
+                         userid.innerHTML="ID:" +users1[i].id
+                         var name=document.createElement('p')
+                         name.innerHTML=users1[i].firstName+" "+users1[i].lastName
+                         div.appendChild(name)
+                         age=document.createElement('p')
+                         age.innerHTML="Age:"+users1[i].age
+                         div.appendChild(age)
+                         gender=document.createElement('p')
+                         gender.innerHTML="Gender:"+users1[i].gender
+                         div.appendChild(gender)
+                         email=document.createElement('p')
+                         email.innerHTML="Email:"+users1[i].email
+                         div.appendChild(email)
+                         phoneno=document.createElement('p')
+                         phoneno.innerHTML="Phone Number:"+users1[i].phone
+                         div.appendChild(phoneno)
+                         var div2=document.createElement('div');
+                         div2.classList.add('div2')
+                        view1=document.createElement('div');
+                        view1.innerHTML="View"
+                        view1.setAttribute('onclick','view('+i+')')
+                        div2.appendChild(view1)
+                         dlt=document.createElement('div');
+                        dlt.innerHTML="Delete"
+                        dlt.setAttribute('onclick','delete1()')
+                        div2.appendChild(dlt)
+                         div.appendChild(div2)
+                         userlist.appendChild(div)
+                     }
+                 }
+             }
+             httpRequest.open('GET', 'https://dummyjson.com/users');
+             httpRequest.send();
+             
+        })();
+        function view(i){
+         sessionStorage.setItem('view',i)
+         window.location.href='./view.html'
+        }
+       }
+      
+       
+    </script>
+</body>
+</html>

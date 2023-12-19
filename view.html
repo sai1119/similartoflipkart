@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            justify-content: center;
+            text-align: center;
+            border: 1px solid red;
+            margin-left: 400px;
+            margin-right: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+        if(sessionStorage.getItem('isloggedin')){
+            var index=sessionStorage.getItem('view')
+            var info=sessionStorage.getItem('infor')
+            var s=JSON.parse(info).users
+            let y=s[index]
+            box=document.getElementById('container');
+            let image=document.createElement('img');
+            image.setAttribute('src',y.image);
+            box.appendChild(image)
+            name1=document.createElement('p');
+            name1.innerHTML='FullName:  '+y.firstName+" "+y.maidenName+" "+y.lastName;
+            box.appendChild(name1)
+            email=document.createElement('p');
+            email.innerHTML="Email:  "+y.email;
+            box.appendChild(email);
+            phoneno=document.createElement('p');
+            phoneno.innerHTML="Phone Number:  "+y.phone;
+            box.appendChild(phoneno);
+            bod=document.createElement('p');
+            bod.innerHTML="Date of Birth:  "+y.birthDate;
+            box.appendChild(bod);
+            gender=document.createElement('p');
+            gender.innerHTML="Gender:  "+y.gender;
+            box.appendChild(gender);
+            city=document.createElement('p');
+            city.innerHTML="City:  "+y.company.address.city;
+            box.appendChild(city);
+            // address=document.createElement('p');
+            // address.innerHTML="Email"+y.comapny.address.address;
+            // box.appendChild(address);
+            postalcode=document.createElement('p');
+            postalcode.innerHTML="Postal Code:  "+y.company.address.postalCode;
+            box.appendChild(postalcode);
+        }
+         
+    </script>
+</body>
+</html>

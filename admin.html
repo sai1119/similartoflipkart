@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="uname">
+    <input type="password" name="" id="password">
+    <div id="invalid"></div>
+    <button type="submit" onclick="validatecredentials()">Login</button>
+    <script>
+        if(sessionStorage.getItem('isloggedin')){
+            function validatecredentials(){
+            var uname=document.getElementById('uname').value;
+            var password=document.getElementById('password').value;
+            if(uname==='admin' && password==='admin'){
+                window.location.href='./users.html'
+            }
+            else{
+                document.getElementById('invalid').innerHTML='Invalid Credentials'
+            }
+        }
+        }
+    </script>
+</body>
+</html>

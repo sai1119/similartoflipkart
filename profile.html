@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <style>
+        #userdetails{
+            border: 1px solid black;
+            text-align: center;
+            width: 500px;
+            margin-left: 500px;
+            margin-top: 30px;
+        }
+        h2{
+            color: red;
+        }
+        #navbar {
+            display: flex;
+            padding: 5px 8px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #logout {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        a {
+            padding-right: 10px;
+            text-decoration: none;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <div>
+            <h3>Dashboard</h3>
+        </div>
+        <div>
+            <p>
+                
+                <a href="./products.html">Products </a>
+                <a href="admin.html">Users</a>
+                <a href="./logout.html">Log Out</a>
+        </div>
+    </div>
+    <h2 style="text-align: center; " >USER DETAILS</h2>
+    <div id="userdetails">
+        <p id="id"></p>
+        <p id="uname"></p>
+        <p id="name"></p>
+        <p id="gender"></p>
+        <p id="bday"></p>
+        <p id="email"></p>
+        <p id="number"></p>
+    </div>
+    <script>
+       if(sessionStorage.getItem('isloggedin')){
+        var info=sessionStorage.getItem('y')
+        infoobj=JSON.parse(info)
+        document.getElementById('id').innerHTML="ID:"+infoobj.id;
+        document.getElementById('uname').innerHTML="USERNAME:"+infoobj.username;
+        document.getElementById('name').innerHTML="NAME:"+infoobj.firstName+" "+infoobj.maidenName+" "+infoobj.lastName;
+        document.getElementById('gender').innerHTML="GENDER:"+infoobj.gender
+        document.getElementById('bday').innerHTML="DOB:"+infoobj.birthDate;
+        document.getElementById('email').innerHTML="EMAIL:"+infoobj.email;
+        document.getElementById('number').innerHTML="PHONE NUMBER:"+infoobj.phone
+       }
+    </script>
+</body>
+</html>
